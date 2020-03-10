@@ -68,6 +68,11 @@ public class GameGateway implements PlantConstants {
             outputToServer.println(MOVE_DOWN);
         outputToServer.flush();
     }
+    
+public synchronized void Fire(boolean fire) {
+        if(fire)
+        outputToServer.println(FIRE);
+    }
 
     // Refresh the game state
     public synchronized void refresh() {

@@ -33,6 +33,12 @@ private void handleKey(KeyEvent evt) {
             gateway.movePaddle(false);
     }
 
+private void fire(KeyEvent evt) {
+        KeyCode code = evt.getCode();
+        if(code == KeyCode.SPACE)
+            gateway.Fire(true);
+    }
+
     @Override
     public boolean isResizable() {
         return false; 
