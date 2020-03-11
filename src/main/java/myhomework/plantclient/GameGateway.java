@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -22,9 +23,10 @@ public class GameGateway implements PlantConstants {
     private PrintWriter outputToServer;
     private BufferedReader inputFromServer;
     private List<Shape> shapes;
-    Image leftPaddle;
-    Image rightPaddle;
-    Circle bullet;
+    Rectangle leftPaddle;
+    Rectangle rightPaddle;
+    Circle b1;
+    Circle b2;
     boolean isOpen = true;
     
     public GameGateway() {
@@ -45,15 +47,23 @@ public class GameGateway implements PlantConstants {
         
         // Make the shapes
         shapes = new ArrayList<Shape>();
-        leftPaddle = new Image("D:\\COMPUTER SCIENCE\\CMSC250\\Final plants\\PlantServer\\src\\main\\resources\\shooter1.jpg");
-        //leftPaddle.setFill(Color.RED);
+        Image l = new Image(getClass().getResourceAsStream("/myhomework.images/shooter1.jpg"));
+        Image r = new Image(getClass().getResourceAsStream("/myhomework.images/shooter2.jpg"));
+        leftPaddle = new Rectangle(MARGIN,MARGIN,THICKNESS,LENGTH);
+        //leftPaddle.setFill(new ImagePattern(l, MARGIN,MARGIN,THICKNESS,LENGTH, true));
+        leftPaddle.setFill(new ImagePattern(l));
         shapes.add(leftPaddle);
-        rightPaddle = new Image("D:\\COMPUTER SCIENCE\\CMSC250\\Final plants\\PlantServer\\src\\main\\resources\\shooter2.jpg");
-        //rightPaddle.setFill(Color.BLUE);
+        rightPaddle = new Rectangle(WIDTH-MARGIN-THICKNESS,MARGIN,THICKNESS,LENGTH);
+        //rightPaddle.setFill(new ImagePattern(r, MARGIN,MARGIN,THICKNESS,LENGTH, true));
+        rightPaddle.setFill(new ImagePattern(r));
         shapes.add(rightPaddle);
-        bullet = new Circle(WIDTH/2,HEIGHT/4,MARGIN/4);
-        bullet.setFill(Color.RED);
-        shapes.add(bullet);
+        
+        b1 = new Circle(WIDTH/2,HEIGHT/4,MARGIN/4);
+        b1.setFill(Color.GREEN);
+        shapes.add(b1);
+        b2 = new Circle(WIDTH/2,HEIGHT/4,MARGIN/4);
+        b2.setFill(Color.GREEN);
+        shapes.add(b2);
        
        
     }
@@ -85,11 +95,13 @@ public synchronized void Fire(boolean fire) {
             System.out.println("Exception in GameGateway.");
             ex.printStackTrace();
         }
-        String parts[] = state.split(" ");
-        bullet.setCenterX(Double.parseDouble(parts[0]));
-        bullet.setCenterY(Double.parseDouble(parts[1]));
-        leftPaddle.setY(Double.parseDouble(parts[2]));
-        rightPaddle.setY(Double.parseDouble(parts[3]));
+        String parts[] = state.split(" ");/////????????????????//b1b2 might be null
+        b1.setCenterX(Double.parseDouble(parts[0]));
+        b1.setCenterY(Double.parseDouble(parts[1]));
+        b2.setCenterX(Double.parseDouble(parts[2]));
+        b2.setCenterY(Double.parseDouble(parts[3]));
+        leftPaddle.setY(Double.parseDouble(parts[4]));
+        rightPaddle.setY(Double.parseDouble(parts[5]));
     }
     
     public void close() {
