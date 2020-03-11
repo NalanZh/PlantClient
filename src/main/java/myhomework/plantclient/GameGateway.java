@@ -47,8 +47,8 @@ public class GameGateway implements PlantConstants {
         
         // Make the shapes
         shapes = new ArrayList<Shape>();
-        Image l = new Image(getClass().getResourceAsStream("/myhomework.images/shooter1.jpg"));
-        Image r = new Image(getClass().getResourceAsStream("/myhomework.images/shooter2.jpg"));
+        Image l = new Image(getClass().getResourceAsStream("images/shooter1.jpg"));
+        Image r = new Image(getClass().getResourceAsStream("images/shooter2.jpg"));
         leftPaddle = new Rectangle(MARGIN,MARGIN,THICKNESS,LENGTH);
         //leftPaddle.setFill(new ImagePattern(l, MARGIN,MARGIN,THICKNESS,LENGTH, true));
         leftPaddle.setFill(new ImagePattern(l));
