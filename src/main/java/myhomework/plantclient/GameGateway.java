@@ -95,11 +95,17 @@ public synchronized void Fire(boolean fire) {
             System.out.println("Exception in GameGateway.");
             ex.printStackTrace();
         }
-        String parts[] = state.split(" ");/////????????????????//b1b2 might be null
-        b1.setCenterX(Double.parseDouble(parts[0]));
-        b1.setCenterY(Double.parseDouble(parts[1]));
+        String parts[] = state.split(" ");
+        if(parts[0].equals("-1"))
+        { b1=null; }// NOT NULL but need to be erased???
+        else
+        {b1.setCenterX(Double.parseDouble(parts[0]));
+        b1.setCenterY(Double.parseDouble(parts[1]));}
+                if(parts[2].equals("-1"))
+                            { b2=null; }
+                else{
         b2.setCenterX(Double.parseDouble(parts[2]));
-        b2.setCenterY(Double.parseDouble(parts[3]));
+        b2.setCenterY(Double.parseDouble(parts[3]));}
         leftPaddle.setY(Double.parseDouble(parts[4]));
         rightPaddle.setY(Double.parseDouble(parts[5]));
     }
