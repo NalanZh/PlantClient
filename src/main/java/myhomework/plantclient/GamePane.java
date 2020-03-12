@@ -27,16 +27,17 @@ public class GamePane extends Pane {
     
 private void handleKey(KeyEvent evt) {
         KeyCode code = evt.getCode();
+        {
         if(code == KeyCode.UP)
             gateway.movePaddle(true);
         else if(code == KeyCode.DOWN)
-            gateway.movePaddle(false);
+            gateway.movePaddle(false);}
+        if(code == KeyCode.SPACE)
+            gateway.Fire(true);
     }
 
 private void fire(KeyEvent evt) {
-        KeyCode code = evt.getCode();
-        if(code == KeyCode.SPACE)
-            gateway.Fire(true);
+
     }
 
     @Override

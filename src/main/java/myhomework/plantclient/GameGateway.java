@@ -49,19 +49,19 @@ public class GameGateway implements PlantConstants {
         shapes = new ArrayList<Shape>();
         Image l = new Image(getClass().getResourceAsStream("images/shooter1.jpg"));
         Image r = new Image(getClass().getResourceAsStream("images/shooter2.jpg"));
-        leftPaddle = new Rectangle(MARGIN,MARGIN,THICKNESS,LENGTH);
+        leftPaddle = new Rectangle(MARGIN,MARGIN,3*THICKNESS,1.5*LENGTH);
         //leftPaddle.setFill(new ImagePattern(l, MARGIN,MARGIN,THICKNESS,LENGTH, true));
         leftPaddle.setFill(new ImagePattern(l));
         shapes.add(leftPaddle);
-        rightPaddle = new Rectangle(WIDTH-MARGIN-THICKNESS,MARGIN,THICKNESS,LENGTH);
+        rightPaddle = new Rectangle(WIDTH-MARGIN-3*THICKNESS,MARGIN,3*THICKNESS,1.5*LENGTH);
         //rightPaddle.setFill(new ImagePattern(r, MARGIN,MARGIN,THICKNESS,LENGTH, true));
         rightPaddle.setFill(new ImagePattern(r));
         shapes.add(rightPaddle);
         
-        b1 = new Circle(WIDTH/2,HEIGHT/4,MARGIN/4);
+        b1 = new Circle(MARGIN,MARGIN,MARGIN/2);
         b1.setFill(Color.GREEN);
         shapes.add(b1);
-        b2 = new Circle(WIDTH/2,HEIGHT/4,MARGIN/4);
+        b2 = new Circle(WIDTH-MARGIN-THICKNESS,MARGIN,MARGIN/2);
         b2.setFill(Color.GREEN);
         shapes.add(b2);
        
@@ -80,8 +80,10 @@ public class GameGateway implements PlantConstants {
     }
     
 public synchronized void Fire(boolean fire) {
-        if(fire)
+        if(fire) {
         outputToServer.println(FIRE);
+        outputToServer.flush();
+        }
     }
 
     // Refresh the game state
@@ -96,16 +98,19 @@ public synchronized void Fire(boolean fire) {
             ex.printStackTrace();
         }
         String parts[] = state.split(" ");
+        
         if(parts[0].equals("-1"))
         { b1=null; }// NOT NULL but need to be erased???
         else
         {b1.setCenterX(Double.parseDouble(parts[0]));
         b1.setCenterY(Double.parseDouble(parts[1]));}
-                if(parts[2].equals("-1"))
-                            { b2=null; }
-                else{
+        
+        if(parts[2].equals("-1"))
+        { b2=null; }
+        else{
         b2.setCenterX(Double.parseDouble(parts[2]));
         b2.setCenterY(Double.parseDouble(parts[3]));}
+         
         leftPaddle.setY(Double.parseDouble(parts[4]));
         rightPaddle.setY(Double.parseDouble(parts[5]));
     }
