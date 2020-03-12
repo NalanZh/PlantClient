@@ -27,6 +27,7 @@ public class GameGateway implements PlantConstants {
     Rectangle rightPaddle;
     Circle b1;
     Circle b2;
+    Image l,r;
     boolean isOpen = true;
     
     public GameGateway() {
@@ -47,8 +48,8 @@ public class GameGateway implements PlantConstants {
         
         // Make the shapes
         shapes = new ArrayList<Shape>();
-        Image l = new Image(getClass().getResourceAsStream("images/shooter1.jpg"));
-        Image r = new Image(getClass().getResourceAsStream("images/shooter2.jpg"));
+        l = new Image(getClass().getResourceAsStream("images/shooter1.jpg"));
+        r = new Image(getClass().getResourceAsStream("images/shooter2.jpg"));
         leftPaddle = new Rectangle(MARGIN,MARGIN,3*THICKNESS,1.5*LENGTH);
         //leftPaddle.setFill(new ImagePattern(l, MARGIN,MARGIN,THICKNESS,LENGTH, true));
         leftPaddle.setFill(new ImagePattern(l));
@@ -97,22 +98,33 @@ public synchronized void Fire(boolean fire) {
             System.out.println("Exception in GameGateway.");
             ex.printStackTrace();
         }
+        
+        if(state.equals("One wins"))
+        {Rectangle win1 = new Rectangle(320,200,30*THICKNESS,15*LENGTH);
+         win1.setFill(new ImagePattern(l));}///////////////////////////////////////////Toan do this game over sign! 
+        else if(state.equals("Two wins"))
+        {Rectangle win2  = new Rectangle(320,200,30*THICKNESS,15*LENGTH);
+         win2.setFill(new ImagePattern(r));}
+        else {
         String parts[] = state.split(" ");
         
         if(parts[0].equals("-1"))
-        { b1=null; }// NOT NULL but need to be erased???
+        {  }
         else
-        {b1.setCenterX(Double.parseDouble(parts[0]));
+        { System.out.println("Bullet 1 x = "+parts[0]);
+            b1.setCenterX(Double.parseDouble(parts[0]));
         b1.setCenterY(Double.parseDouble(parts[1]));}
         
         if(parts[2].equals("-1"))
-        { b2=null; }
+        {  }
         else{
+            System.out.println("Bullet 2 x = "+parts[2]);
         b2.setCenterX(Double.parseDouble(parts[2]));
         b2.setCenterY(Double.parseDouble(parts[3]));}
          
         leftPaddle.setY(Double.parseDouble(parts[4]));
         rightPaddle.setY(Double.parseDouble(parts[5]));
+                }
     }
     
     public void close() {
