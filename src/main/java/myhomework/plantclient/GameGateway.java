@@ -113,10 +113,10 @@ public class GameGateway implements PlantConstants {
         }
 
         if (state.equals("One wins")) {
-            start();
+            end =1;
         }///////////////////////////////////////////Toan do this game over sign! 
         else if (state.equals("Two wins")) {
-            start();
+            end =1;
         } else {
             String parts[] = state.split(" ");
 
