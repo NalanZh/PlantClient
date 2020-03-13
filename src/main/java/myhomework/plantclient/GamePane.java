@@ -54,6 +54,7 @@ class UpdateGameState implements Runnable {
         this.gateway = gateway;
     }
     
+    
     public void run() {
         while(true) {
             try {
